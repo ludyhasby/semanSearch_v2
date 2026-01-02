@@ -1,6 +1,9 @@
 import pandas as pd
 from sqlalchemy import create_engine
-engine = create_engine('postgresql://postgres:1221425pg@localhost:5432/sahih')
+import env_migrate
+
+connection_string = f"postgresql://{env_migrate.DB_USER}:{env_migrate.DB_PASS}@{env_migrate.DB_HOST}:{env_migrate.DB_PORT}/{env_migrate.DB_NAME}"
+engine = create_engine(connection_string)
 df = pd.read_csv('data.csv', encoding='utf-8')[['nama doa asli', 'detail_doa', 'bantuan baca', 'artinya', 'panduan doa', 'keutamaan', 'sumber']]
 df.rename(columns={
     'nama doa asli' : 'name', 
